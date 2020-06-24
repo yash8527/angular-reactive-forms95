@@ -1,0 +1,54 @@
+<div class="container-fluid">
+	{{registrationForm.value|json}}
+
+	<h2>Registration </h2>
+	<form [formGroup]="registrationForm">
+		<div class="form-group">
+			<label>Username </label>
+			<input [class.is-invalid]="userName.invalid && userName.touched" type="text" formControlName="userName" class="form-control">
+			<div *ngIf="userName.invalid && userName.touched">
+				<small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
+				<small *ngIf="userName.errors?.minlength" class="text-danger">Username must be three char</small>
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="">Email</label>
+			<button (click)="addAlternateEmails()" type="button" class="btn btn-secondary btn-sm m-4">Add Email</button>
+			<input type="text" formControlName="email"  class="form-control">
+			<small *ngIf="email.invalid" class="text-danger">Email is required</small>
+			<div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
+				<input type="text" [formControlName]="i" class="form-control my-2">
+        </div>
+			</div>
+			<div class="form-check mb-3">
+				<input type="checkbox" formControlName="subscribe" class="form-check-input">
+				<label  class="form-check-label"> Send me promotional offers</label>
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" formControlName="password"class="form-control">
+    </div>
+				<div class="form-group">
+					<label>Confirm Pasword</label>
+					<input type="password" formControlName="confirmpassword" class="form-control">
+    </div>
+					<div formGroupName="address">
+						<div class="form-group">
+							<label>City</label>
+							<input type="text" formControlName="city" class="form-control">
+      </div>
+							<div class="form-group">
+								<label>State</label>
+								<input type="text" formControlName="state" class="form-control">
+      </div>
+								<div class="form-group">
+									<label>Postal Code</label>
+									<input type="text" formControlName="postalCode" class="form-control">
+      </div>
+								</div>
+								<button class="btn btn-primary" type="submit" >Register</button>
+
+								<br>
+  </form>
+</div>
